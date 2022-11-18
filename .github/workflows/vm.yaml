@@ -14,16 +14,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: ./github/actions/s3-fetch
+      - uses: ./.github/actions/s3-fetch
         with: 
           s3_url: s3://naps-dev-artifacts/Capability-SW/MixMode/MixMode-8.11-export-i-0966be276efb5b2f2.ova
 
-      - uses: ./github/actions/convert-vm
+      - uses: ./.github/actions/convert-vm
         with:
           input_ova_file: MixMode-8.11-export-i-0966be276efb5b2f2.ova
           output_qcow2_file: mixmode-8.11
 
-      - uses: ./github/actions/customize-vm
+      - uses: ./.github/actions/customize-vm
         with:
           qcow2_file: mixmode-8.11-sda
 
