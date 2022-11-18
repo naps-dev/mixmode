@@ -1,0 +1,17 @@
+name: Fetch S3 Object
+
+inputs:
+  input_ova_file:
+    required: true
+  output_qcow2_file:
+    required: true
+  
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        LIBGUESTFS_BACKEND=direct \
+          virt-v2v \
+          -i ova "$INPUT_OVA_FILE" \
+          -o local -of qcow2 -os "$PWD" -on "$OUTPUT_QCOW2_FILE"
+      shell: bash

@@ -1,0 +1,50 @@
+name: Convert and Package VM
+run-name: ${{github.actor}} is converting and packaging a VM
+on:
+  pull_request:
+    types: [opened, synchronize]
+  push:
+    branches: [main]
+permissions:
+  id_token: write
+  contents: read
+jobs:
+  convert-vm:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./github/actions/s3-fetch
+        with: 
+          s3_url: s3://naps-dev-artifacts/Capability-SW/MixMode/MixMode-8.11-export-i-0966be276efb5b2f2.ova
+
+      - uses: ./github/actions/convert-vm
+        with:
+          input_ova_file: MixMode-8.11-export-i-0966be276efb5b2f2.ova
+          output_qcow2_file: mixmode-8.11
+
+      - uses: ./github/actions/customize-vm
+        with:
+          qcow2_file: mixmode-8.11-sda
+
+      - uses: ./.github/actions/s3-publish
+        with:
+          aws_bucket: ${{secrets.AWS_BUCKET}}
+          source: mixmode-8.11-sda
+          destination: "${{github.repository}}/${{ github.head_ref || github.ref_name }}/mixmode-8.11-sda"
+
+  # build-package:
+  #   runs-on: self-hosted
+  #   steps:
+  #     - name: Install Zarf
+  #       uses: defenseunicorns/setup-zarf@main
+  #       with:
+  #         version: v0.22.2
+
+  #     - uses: ./.github/actions/package-create
+
+  #     - uses: ./.github/actions/s3-publish
+  #       with:
+  #         aws_bucket: ${{secrets.AWS_BUCKET}}
+  #         source: ""
+  #         destination: ""

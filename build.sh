@@ -3,9 +3,10 @@
 # Docker upload destination for containerDisk
 IMAGE_UPLOAD_PATH="${IMAAGE_UPLOAD_PATH}" # "${IMAGE_UPLOAD_PATH:-10.1.25.34/voltron/mockingbird-sandbox:latest}"
 
-virt-v2v \
-    -i ova MixMode-8.11-export-i-0966be276efb5b2f2.ova \
-    -o local -of qcow2 -os "$PWD" -on mixmode-8.11
+LIBGUESTFS_BACKEND=direct \
+  virt-v2v \
+  -i ova MixMode-8.11-export-i-0966be276efb5b2f2.ova \
+  -o local -of qcow2 -os "$PWD" -on mixmode-8.11
 
 virt-customize \
   -a mixmode-8.11-sda \
