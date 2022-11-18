@@ -8,7 +8,8 @@ runs:
   using: "composite"
   steps:
     - run: |
-        virt-customize \
+        LIBGUESTFS_BACKEND=direct \
+          virt-customize \
           -a "${{inputs.qcow2_file}}" \
           --run-command 'yum install -y cloud-init qemu-guest-agent' \
           --delete '/etc/cloud/cloud.cfg.d/99-installer.cfg' \
