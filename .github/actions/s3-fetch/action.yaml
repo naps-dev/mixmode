@@ -8,5 +8,5 @@ runs:
   using: "composite"
   steps:
     - run: |
-        aws s3 cp --no-progress "$S3_URL" .
+        aws s3 cp --no-progress "$S3_URL" ./.
       shell: bash
