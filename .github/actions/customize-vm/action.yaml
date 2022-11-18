@@ -9,7 +9,7 @@ runs:
   steps:
     - run: |
         virt-customize \
-          -a "$QCOW2_FILE" \
+          -a "${{inputs.qcow2_file}}" \
           --run-command 'yum install -y cloud-init qemu-guest-agent' \
           --delete '/etc/cloud/cloud.cfg.d/99-installer.cfg' \
           --delete '/etc/cloud/cloud.cfg.d/curtin-preserve-sources.cfg' \
