@@ -36,7 +36,8 @@ jobs:
       - uses: ./.github/actions/image-create
         with:
           vm_file: mixmode-8.11-sda
-          image_tag: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode:${{ github.head_ref || github.ref_name }}
+          image_name: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode
+          image_tag: ${{ github.head_ref || github.ref_name }}
 
   # build-package:
   #   runs-on: self-hosted

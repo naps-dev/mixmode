@@ -12,7 +12,8 @@ runs:
   using: "composite"
   steps:
     - run: |
-        IMAGE_TAG=${${{inputs.image_tag}}//\//\_}
+        IMAGE_TAG="${{inputs.image_tag}}"
+        IMAGE_TAG=${IMAGE_TAG//\//\_}
         echo $IMAGE_TAG
         # aws ecr get-login-password | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
         # rm -rvf disk; mkdir disk
