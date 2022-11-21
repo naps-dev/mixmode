@@ -1,0 +1,15 @@
+name: Create Image
+
+inputs:
+  vm_file:
+    required: true
+  image_tag:
+    required: true
+
+runs: 
+  using: "composite"
+  steps:
+    - run: |
+      aws ecr get-login-password --region region | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
+      docker build -t "${{inputs.image_tag}}" .
+      docker push "${{inputs.impage_tag}}"
