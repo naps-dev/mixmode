@@ -3,6 +3,8 @@ name: Create Image
 inputs:
   vm_file:
     required: true
+  image_name:
+    required: true
   image_tag:
     required: true
 
@@ -10,11 +12,11 @@ runs:
   using: "composite"
   steps:
     - run: |
-        echo image tag "${{inputs.image_tag}}"
-        echo whoami
-        aws ecr get-login-password | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
-        rm -rvf disk; mkdir disk
-        cp "${{inputs.vm_file}}" disk/"${{inputs.vm_file}}"
-        docker build -t "${{inputs.image_tag}}" .
-        docker push "${{inputs.image_tag}}"
+        IMAGE_TAG=${"${{inputs.image_tag}}"//\\/_}
+        echo $IMAGE_TAG
+        # aws ecr get-login-password | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
+        # rm -rvf disk; mkdir disk
+        # cp "${{inputs.vm_file}}" disk/"${{inputs.vm_file}}"
+        # docker build -t "${{inputs.image_name}}":"${{inputs.image_tag}}" .
+        # docker push "${{inputs.image_name}}":"${{inputs.image_tag}}"
       shell: bash
