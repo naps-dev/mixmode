@@ -10,7 +10,7 @@ runs:
   using: "composite"
   steps:
     - run: |
-        echo image tag ${{inputs.image_tag}}"
+        echo image tag "${{inputs.image_tag}}"
         echo whoami
         aws ecr get-login-password | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
         rm -rvf disk; mkdir disk
