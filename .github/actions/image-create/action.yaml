@@ -18,6 +18,6 @@ runs:
         aws ecr get-login-password | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
         mkdir disk
         cp "${{inputs.vm_file}}" disk/"${{inputs.vm_file}}"
-        docker build -t "${{inputs.image_name}}":"${{inputs.image_tag}}" .
+        docker build -t "${{inputs.image_name}}":"$IMAGE_TAG" .
         docker push "${{inputs.image_name}}":"$IMAGE_TAG"
       shell: bash
