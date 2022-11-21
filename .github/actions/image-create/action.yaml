@@ -11,7 +11,7 @@ runs:
   steps:
     - run: |
       echo "${{inputs.image_tag}}"
-      aws ecr get-login-password --region region | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
+      aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
       rm -rvf disk; mkdir disk
       cp "${{inputs.vm_file}}" disk/"${{inputs.vm_file}}"
       docker build -t "${{inputs.image_tag}}" .
