@@ -1,5 +1,6 @@
 image:
-  repository: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode
+  # repository: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode
+  repository: 127.0.0.1:31999/mixmode
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "feature_am"
