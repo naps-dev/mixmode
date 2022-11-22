@@ -30,12 +30,12 @@ jobs:
       - uses: ./.github/actions/s3-publish
         with:
           aws_bucket: ${{secrets.AWS_BUCKET}}
-          source: mixmode-8.11-sda
+          source: mixmode-8.11-sda.qcow2
           destination: "${{github.repository}}/${{ github.head_ref || github.ref_name }}/mixmode-8.11-sda"
       
       - uses: ./.github/actions/image-create
         with:
-          vm_file: mixmode-8.11-sda
+          vm_file: mixmode-8.11-sda.qcow2
           image_name: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode
           image_tag: ${{ github.head_ref || github.ref_name }}
 

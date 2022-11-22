@@ -8,9 +8,10 @@ runs:
   using: "composite"
   steps:
     - run: |
+        cp "${{inputs.qcow2_file}}" "${{inputs.qcow2_file}}".qcow2
         LIBGUESTFS_BACKEND=direct \
           virt-customize \
-          -a "${{inputs.qcow2_file}}" \
+          -a "${{inputs.qcow2_file}}".qcow2 \
           --run-command 'yum install -y cloud-init qemu-guest-agent' \
           --delete '/etc/cloud/cloud.cfg.d/99-installer.cfg' \
           --delete '/etc/cloud/cloud.cfg.d/curtin-preserve-sources.cfg' \
