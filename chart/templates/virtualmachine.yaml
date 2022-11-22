@@ -56,7 +56,7 @@ spec:
             requests:
               storage: 100Gi  # TODO: add the exact size here
         source:
-          docker:
+          registry:
             url: docker://"{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
             # This should pull from the zarf-provided registry
             #pullMethod: node
