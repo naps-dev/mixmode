@@ -6,7 +6,7 @@ metadata:
     {{- include "mixmode.labels" . | nindent 4 }}
     kubevirt.io/vm: {{ include "mixmode.fullname" . }}
 spec:
-  running: {{ include .Values.running . }}
+  running: true
   template:
     metadata:
       labels:
