@@ -58,6 +58,6 @@ spec:
         source:
           registry:
             url: "docker://{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-            secretRef: private-registry
+            secretRef: endpoint-secret
             # This should pull from the zarf-provided registry
             #pullMethod: node
