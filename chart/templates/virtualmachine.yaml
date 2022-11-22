@@ -54,9 +54,10 @@ spec:
             - ReadWriteOnce
           resources:
             requests:
-              storage: 100Gi  # TODO: add the exact size here
+              storage: 150Gi  # TODO: add the exact size here
         source:
           registry:
             url: "docker://{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+            secretRef: private-registry
             # This should pull from the zarf-provided registry
             #pullMethod: node
