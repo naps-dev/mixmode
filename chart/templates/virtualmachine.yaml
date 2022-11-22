@@ -1,8 +1,8 @@
 apiVersion: kubevirt.io/v1alpha3
 kind: VirtualMachine
 metadata:
+  name: {{ include "mixmode.fullname" . }}
   labels:
-    name: {{ include "mixmode.fullname" . }}
     {{- include "mixmode.labels" . | nindent 4 }}
     kubevirt.io/vm: {{ include "mixmode.fullname" . }}
 spec:
