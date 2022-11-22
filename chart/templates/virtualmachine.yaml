@@ -1,0 +1,62 @@
+apiVersion: kubevirt.io/v1alpha3
+kind: VirtualMachine
+metadata:
+  labels:
+    name: {{ include "mixmode.fullname" . }}
+    {{- include "mixmode.labels" . | nindent 4 }}
+    kubevirt.io/vm: {{ include "mixmode.fullname" . }}
+spec:
+  running: {{ include .Values.running . }}
+  template:
+    metadata:
+      labels:
+        kubevirt.io/vm: {{ include "mixmode.fullname" . }}
+        {{- include "mixmode.selectorLabels" . | nindent 8 }}
+    spec:
+      domain:
+        devices:
+          disks:
+            - disk:
+                bus: virtio
+              name: {{ include "mixmode.fullname" . }}
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
+          interfaces:
+            - name: default
+              masquerade: {}
+              ports:
+                # Ports not known, including HTTP and SSH for now
+                - port: 22
+                - port: 80
+        resources:
+          requests:
+            memory: 2G # from OVA's OVF XML
+      networks:
+        - name: default
+          pod: {}
+      volumes:
+        - dataVolume:
+            name: {{ include "mixmode.fullname" . }}
+          name: {{ include "mixmode.fullname" . }}
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: |
+              #cloud-config
+
+              # untested if this works
+  dataVolumeTemplates:
+    - metadata:
+        name: {{ include "mixmode.fullname" . }}
+      spec:
+        pvc:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 100Gi  # TODO: add the exact size here
+        source:
+          docker:
+            url: docker://"{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+            # This should pull from the zarf-provided registry
+            #pullMethod: node
