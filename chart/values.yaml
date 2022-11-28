@@ -3,7 +3,7 @@ image:
   # repository: 127.0.0.1:31999/mixmode-3097815817
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "feature_am"
+  tag: "feature_mm"
 
 imagePullSecrets: []
 nameOverride: ""
