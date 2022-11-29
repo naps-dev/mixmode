@@ -62,23 +62,23 @@ jobs:
       #     image_name: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode
       #     image_tag: ${{ github.head_ref || github.ref_name }}
 
-    build-image:
-      runs-on: self-hosted
-      steps:
-        - uses: actions/checkout@v3
+  build-image:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
 
-        - run: |
-            aws ecr get-login-password | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
+      - run: |
+          aws ecr get-login-password | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
 
-        - run: |
-            mkdir disk
-            aws s3 cp --no-progress "${{ github.repository }}/${{ github.head_ref || github.ref_name }}/${{ env.QCOW2_FILE }}" ./disk/
-      
-        - run: |
-            IMAGE_TAG="${{ github.head_ref || github.ref_name }}"
-            IMAGE_TAG=${IMAGE_TAG//\//\_}
-            docker build -t "${{inputs.image_name}}":"$IMAGE_TAG" .
-            docker push "${{inputs.image_name}}":"$IMAGE_TAG"
+      - run: |
+          mkdir disk
+          aws s3 cp --no-progress "${{ github.repository }}/${{ github.head_ref || github.ref_name }}/${{ env.QCOW2_FILE }}" ./disk/
+    
+      - run: |
+          IMAGE_TAG="${{ github.head_ref || github.ref_name }}"
+          IMAGE_TAG=${IMAGE_TAG//\//\_}
+          docker build -t "${{inputs.image_name}}":"$IMAGE_TAG" .
+          docker push "${{inputs.image_name}}":"$IMAGE_TAG"
 
   # build-package:
   #   runs-on: self-hosted
