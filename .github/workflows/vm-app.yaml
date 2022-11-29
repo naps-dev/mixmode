@@ -75,7 +75,7 @@ jobs:
 
       - run: |
           mkdir disk
-          aws s3 cp --no-progress "${{ github.repository }}/${{ github.head_ref || github.ref_name }}/${{ env.QCOW2_FILE }}" disk/
+          aws s3 cp --no-progress s3://"${{ secrets.AWS_BUCKET }}/"${{ github.repository }}/${{ github.head_ref || github.ref_name }}/${{ env.QCOW2_FILE }}" disk/
     
       - run: |
           IMAGE_TAG="${{ github.head_ref || github.ref_name }}"
