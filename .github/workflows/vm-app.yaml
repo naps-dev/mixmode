@@ -16,6 +16,8 @@ env:
   VM: MixMode-8.11-export-i-0966be276efb5b2f2.ova
   V2V_OUT: mixmode-8.11
   QCOW2_FILE: mixmode-8.11-sda.qcow2
+  S3_PATH: "s3://${{ secrets.AWS_BUCKET }}/${{ github.repository }}/${{ github.head_ref || github.ref_name }}"
+  IMAGE_TAG: 
 
 jobs:
   convert-vm:
@@ -24,16 +26,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: |
+      - name: Retrieve Source VM
+        run: |
           aws s3 cp --no-progress "${{ env.S3_URL }}"/"${{ env.VM }}" .
 
-      - run: |
+      - name: Convert VM
+        run: |
           LIBGUESTFS_BACKEND=direct \
             virt-v2v \
             -i ova "${{ env.VM }}" \
             -o local -of qcow2 -os "$PWD" -on "${{ env.V2V_OUT }}"
 
-      - run: |
+      - name: Customize VM
+        run: |
           cp "${{ env.V2V_OUT }}"-sda "${{ env.QCOW2_FILE }}"
           LIBGUESTFS_BACKEND=direct \
             virt-customize \
@@ -51,18 +56,10 @@ jobs:
             --append-line '/etc/default/grub:GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1"' \
             --run-command 'grub2-mkconfig -o /boot/grub2/grub.cfg'
 
-      - uses: ./.github/actions/s3-publish
-        with:
-          aws_bucket: ${{secrets.AWS_BUCKET}}
-          source: "${{ env.QCOW2_FILE }}"
-          destination: "${{ github.repository }}/${{ github.head_ref || github.ref_name }}/${{ env.QCOW2_FILE }}"
+      - name: Save VM to S3
+        run: |
+          aws s3 cp --no-progress "${{ env.QCOW2_FILE }}" "${{ env.S3_PATH }}/${{ env.QCOW2_FILE }}"
       
-      # - uses: ./.github/actions/image-create
-      #   with:
-      #     vm_file: mixmode-8.11-sda.qcow2
-      #     image_name: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode
-      #     image_tag: ${{ github.head_ref || github.ref_name }}
-
   build-image:
     runs-on: self-hosted
     needs: convert-vm
@@ -70,17 +67,23 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: |
+      - name: Login to ECR
+        run: |
           aws ecr get-login-password | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
 
-      - run: |
+      - name: Retrieve Source VM
+        run: |
           mkdir disk
-          aws s3 cp --no-progress s3://"${{ secrets.AWS_BUCKET }}/"${{ github.repository }}/${{ github.head_ref || github.ref_name }}/${{ env.QCOW2_FILE }}" disk/
+          aws s3 cp --no-progress "${{ env.S3_PATH }}/${{ env.QCOW2_FILE }}" disk/
     
-      - run: |
+      - name: Build OCI Container
+        run: |
           IMAGE_TAG="${{ github.head_ref || github.ref_name }}"
           IMAGE_TAG=${IMAGE_TAG//\//\_}
           docker build -t "${{inputs.image_name}}":"$IMAGE_TAG" .
+      
+      - name: Push OCI Container
+          run: |
           docker push "${{inputs.image_name}}":"$IMAGE_TAG"
 
   # build-package:
