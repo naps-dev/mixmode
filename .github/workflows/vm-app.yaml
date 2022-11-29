@@ -20,6 +20,8 @@ env:
 jobs:
   convert-vm:
     runs-on: self-hosted
+    concurrency: vm
+
     steps:
       - uses: actions/checkout@v3
 
@@ -29,7 +31,7 @@ jobs:
       - run: |
           LIBGUESTFS_BACKEND=direct \
             virt-v2v \
-            -i ova "${{ env.SRC_VM }}" \
+            -i ova "${{ env.VM }}" \
             -o local -of qcow2 -os "$PWD" -on "${{ env.V2V_OUT }}"
 
       - run: |
@@ -64,6 +66,8 @@ jobs:
 
   build-image:
     runs-on: self-hosted
+    concurrency: vm
+
     steps:
       - uses: actions/checkout@v3
 
@@ -72,7 +76,7 @@ jobs:
 
       - run: |
           mkdir disk
-          aws s3 cp --no-progress "${{ github.repository }}/${{ github.head_ref || github.ref_name }}/${{ env.QCOW2_FILE }}" ./disk/
+          aws s3 cp --no-progress "${{ github.repository }}/${{ github.head_ref || github.ref_name }}/${{ env.QCOW2_FILE }}" disk/
     
       - run: |
           IMAGE_TAG="${{ github.head_ref || github.ref_name }}"
