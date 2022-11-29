@@ -1,4 +1,4 @@
-# Script requires DragOS-SiteStore-STS-500-VM-2.1.0.ova in the current directory
+# Please note: this script is only useful when running things locally and it not used by any pipelines or other automated processes.
 
 # Docker upload destination for containerDisk
 IMAGE_UPLOAD_PATH="${IMAAGE_UPLOAD_PATH}" # "${IMAGE_UPLOAD_PATH:-10.1.25.34/voltron/mockingbird-sandbox:latest}"

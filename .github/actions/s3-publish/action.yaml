@@ -11,6 +11,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: |
-        aws s3 cp --no-progress "${{inputs.source}}" "s3://${{inputs.aws_bucket}}/${{inputs.destination}}"
-      shell: bash
+      - run: |
+          aws s3 cp --no-progress "${{inputs.source}}" "s3://${{inputs.aws_bucket}}/${{inputs.destination}}"
+        shell: bash

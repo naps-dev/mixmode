@@ -1,0 +1,97 @@
+name: Convert and Package VM
+run-name: ${{github.actor}} is converting and packaging the MixMode VM
+on:
+  pull_request:
+    types: [opened, synchronize]
+  push:
+    branches: [main]
+permissions:
+  id-token: write
+  contents: read
+defaults:
+  run:
+    shell: bash
+environment:
+  S3_URL: s3://naps-dev-artifacts/Capability-SW/MixMode
+  VM: MixMode-8.11-export-i-0966be276efb5b2f2.ova
+  V2V_OUT: mixmode-8.11
+  QCOW2_FILE: mixmode-8.11-sda.qcow2
+
+jobs:
+  convert-vm:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: |
+          aws s3 cp --no-progress "${{ env.S3_URL }}"/"${{ env.VM }}" .
+
+      - run: |
+          LIBGUESTFS_BACKEND=direct \
+            virt-v2v \
+            -i ova "${{ env.SRC_VM }}" \
+            -o local -of qcow2 -os "$PWD" -on "${{ env.V2V_OUT }}"
+
+      - run: |
+          cp "${{ env.V2V_OUT }}"-sda "${{ env.QCOW2_FILE }}"
+          LIBGUESTFS_BACKEND=direct \
+            virt-customize \
+            -a "${{ env.QCOW2_FILE }}" \
+            --run-command 'yum install -y cloud-init qemu-guest-agent' \
+            --delete '/etc/cloud/cloud.cfg.d/99-installer.cfg' \
+            --delete '/etc/cloud/cloud.cfg.d/curtin-preserve-sources.cfg' \
+            --delete '/etc/cloud/cloud.cfg.d/subiquity-disable-cloudinit-networking.cfg' \
+            --delete '/etc/netplan/*.yaml' \
+            --delete '/etc/cloud/ds-identify.cfg'  \
+            --run-command 'cloud-init clean --logs --seed'  \
+            --delete '/var/lib/cloud/'  \
+            --run-command 'sed -i '"'"'s/GRUB_CMDLINE_LINUX="\([^"]*\)"/GRUB_CMDLINE_LINUX="\1 console=tty0 console=ttyS0,115200n8"/'"'"' /etc/default/grub'  \
+            --append-line '/etc/default/grub:GRUB_TERMINAL=serial' \
+            --append-line '/etc/default/grub:GRUB_SERIAL_COMMAND="serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1"' \
+            --run-command 'grub2-mkconfig -o /boot/grub2/grub.cfg'
+
+      - uses: ./.github/actions/s3-publish
+        with:
+          aws_bucket: ${{secrets.AWS_BUCKET}}
+          source: "${{ env.QCOW2_FILE }}"
+          destination: "${{ github.repository }}/${{ github.head_ref || github.ref_name }}/${{ env.QCOW2_FILE }}"
+      
+      # - uses: ./.github/actions/image-create
+      #   with:
+      #     vm_file: mixmode-8.11-sda.qcow2
+      #     image_name: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode
+      #     image_tag: ${{ github.head_ref || github.ref_name }}
+
+    build-image:
+      runs-on: self-hosted
+      steps:
+        - uses: actions/checkout@v3
+
+        - run: |
+            aws ecr get-login-password | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
+
+        - run: |
+            mkdir disk
+            aws s3 cp --no-progress "${{ github.repository }}/${{ github.head_ref || github.ref_name }}/${{ env.QCOW2_FILE }}" ./disk/
+      
+        - run: |
+            IMAGE_TAG="${{ github.head_ref || github.ref_name }}"
+            IMAGE_TAG=${IMAGE_TAG//\//\_}
+            docker build -t "${{inputs.image_name}}":"$IMAGE_TAG" .
+            docker push "${{inputs.image_name}}":"$IMAGE_TAG"
+
+  # build-package:
+  #   runs-on: self-hosted
+  #   steps:
+  #     - name: Install Zarf
+  #       uses: defenseunicorns/setup-zarf@main
+  #       with:
+  #         version: v0.22.2
+
+  #     - uses: ./.github/actions/package-create
+
+  #     - uses: ./.github/actions/s3-publish
+  #       with:
+  #         aws_bucket: ${{secrets.AWS_BUCKET}}
+  #         source: ""
+  #         destination: ""
