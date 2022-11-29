@@ -27,7 +27,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: |
-        echo "${{ TEST }}"
+        echo "${{ env.TEST }}"
   # convert-vm:
   #   runs-on: self-hosted
 
