@@ -114,4 +114,4 @@ jobs:
       
       - name: Save Package to S3
         run: |
-          aws s3 cp --no-progress "${{ env.ZARF_PACKAGE }}" "${{ env.S3_PATH }}/${{ env.ZARf_PACKAGE }}"
+          aws s3 cp --no-progress "${{ env.ZARF_PACKAGE }}" "${{ env.S3_PATH }}/${{ env.ZARF_PACKAGE }}"
