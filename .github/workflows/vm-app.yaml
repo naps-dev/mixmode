@@ -20,8 +20,14 @@ env:
   IMAGE_NAME: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode
   IMAGE_TAG: "${{ github.head_ref || github.ref_name }}"
   ZARF_PACKAGE: zarf-package-mixmode-amd64.tar.zst
+  TEST: "${${{ github.head_ref || github.ref_name }}//\//\_}"
 
 jobs:
+  image-var:
+    runs-on: self-hosted
+    steps:
+      - run: |
+        echo "${{ TEST }}"
   # convert-vm:
   #   runs-on: self-hosted
 
@@ -90,28 +96,28 @@ jobs:
   #         IMAGE_TAG=${IMAGE_TAG//\//\_}
   #         docker push "${{ env.IMAGE_NAME }}":"$IMAGE_TAG"
 
-  package-create:
-    runs-on: self-hosted
-    # needs build-image
+  # package-create:
+  #   runs-on: self-hosted
+  #   # needs build-image
 
-    steps:
-      - uses: actions/checkout@v3
+  #   steps:
+  #     - uses: actions/checkout@v3
 
-      - name: Install Zarf
-        uses: defenseunicorns/setup-zarf@main
-        with:
-          version: v0.22.2
+  #     - name: Install Zarf
+  #       uses: defenseunicorns/setup-zarf@main
+  #       with:
+  #         version: v0.22.2
       
-      - name: Login to ECR
-        run: |
-          aws ecr get-login-password | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
+  #     - name: Login to ECR
+  #       run: |
+  #         aws ecr get-login-password | docker login --username AWS --password-stdin 765814079306.dkr.ecr.us-east-1.amazonaws.com
       
-      - name: Create Zarf Package
-        run: |
-          IMAGE_TAG="${{ env.IMAGE_TAG }}"
-          IMAGE_TAG=${IMAGE_TAG//\//\_}
-          zarf package create --set TAG="$IMAGE_TAG" --confirm
+  #     - name: Create Zarf Package
+  #       run: |
+  #         IMAGE_TAG="${{ env.IMAGE_TAG }}"
+  #         IMAGE_TAG=${IMAGE_TAG//\//\_}
+  #         zarf package create --set TAG="$IMAGE_TAG" --confirm
       
-      - name: Save Package to S3
-        run: |
-          aws s3 cp --no-progress "${{ env.ZARF_PACKAGE }}" "${{ env.S3_PATH }}/${{ env.ZARf_PACKAGE }}"
+  #     - name: Save Package to S3
+  #       run: |
+  #         aws s3 cp --no-progress "${{ env.ZARF_PACKAGE }}" "${{ env.S3_PATH }}/${{ env.ZARf_PACKAGE }}"
