@@ -20,7 +20,7 @@ env:
   IMAGE_NAME: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode
   IMAGE_TAG: "${{ github.head_ref || github.ref_name }}"
   ZARF_PACKAGE: zarf-package-mixmode-amd64.tar.zst
-  TEST: ${"${{ github.head_ref || github.ref_name }}"//\//\_}
+  TEST: ${env.IMAGE_TAG//\//\_}
 
 jobs:
   image-var:
