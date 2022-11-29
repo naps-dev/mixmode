@@ -83,7 +83,7 @@ jobs:
           docker build -t "${{inputs.image_name}}":"$IMAGE_TAG" .
       
       - name: Push OCI Container
-          run: |
+        run: |
           docker push "${{inputs.image_name}}":"$IMAGE_TAG"
 
   # build-package:
