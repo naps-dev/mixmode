@@ -20,7 +20,6 @@ env:
 jobs:
   convert-vm:
     runs-on: self-hosted
-    concurrency: vm
 
     steps:
       - uses: actions/checkout@v3
@@ -66,7 +65,7 @@ jobs:
 
   build-image:
     runs-on: self-hosted
-    concurrency: vm
+    needs: convert-vm
 
     steps:
       - uses: actions/checkout@v3
