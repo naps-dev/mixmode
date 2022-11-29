@@ -17,7 +17,7 @@ env:
   V2V_OUT: mixmode-8.11
   QCOW2_FILE: mixmode-8.11-sda.qcow2
   S3_PATH: "s3://${{ secrets.AWS_BUCKET }}/${{ github.repository }}/${{ github.head_ref || github.ref_name }}"
-  IMAGE_NAME: mixmode
+  IMAGE_NAME: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode
   IMAGE_TAG: "${{ github.head_ref || github.ref_name }}"
 
 jobs:
