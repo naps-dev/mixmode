@@ -1,7 +1,7 @@
 image:
   repository: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode
   pullPolicy: Always
-  tag: "feature_mm"
+  tag: "main"
 
 imagePullSecrets: []
 nameOverride: ""
