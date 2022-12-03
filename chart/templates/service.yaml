@@ -20,4 +20,4 @@ spec:
       targetPort: 443
       name: https-web
   selector:
-    kubevirt.io/vm: {
+    kubevirt.io/vm: {{ include "mixmode.fullname" . }}
