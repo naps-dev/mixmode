@@ -32,7 +32,7 @@ spec:
                 - port: 443
         resources:
           requests:
-            memory: 2G # from OVA's OVF XML
+            memory: 32G # from OVA's OVF XML
       networks:
         - name: default
           pod: {}
