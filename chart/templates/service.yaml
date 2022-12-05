@@ -21,3 +21,4 @@ spec:
       name: https-web
   selector:
     kubevirt.io/vm: {{ include "mixmode.fullname" . }}
+  type: ClusterIP
