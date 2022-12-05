@@ -14,7 +14,6 @@ variables:
     default: "main"
     prompt: true
 
-variables:
   - name: DOMAIN
     default: "vp.bigbang.dev"
     prompt: false
