@@ -45,7 +45,9 @@ spec:
             userData: |
               #cloud-config
 
-              hostname: asdf
+              disable_root: 0
+              ssh_pwauth: 1
+              password: "p@ssw0rd"
 
               # untested if this works
   dataVolumeTemplates:
