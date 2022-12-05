@@ -5,7 +5,7 @@ metadata:
   name: {{ include "mixmode.fullname" . }}
 spec:
   hosts:
-    - "{{ include "mixmode.fullname" . }}.###ZARF_VAR_DOMAIN###"
+    - "{{ include "mixmode.fullname" . }}.vp.bigbang.dev"
   gateways:
     - istio-system/public
   http:
