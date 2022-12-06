@@ -61,7 +61,6 @@ spec:
                 enabled: true
                 blacklist: [dsa]
 
-              # untested if this works
   dataVolumeTemplates:
     - metadata:
         name: {{ include "mixmode.fullname" . }}
