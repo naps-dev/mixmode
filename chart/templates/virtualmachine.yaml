@@ -14,6 +14,8 @@ spec:
         {{- include "mixmode.selectorLabels" . | nindent 8 }}
     spec:
       domain:
+        cpu:
+          dedicatedCpuPlacement: true
         devices:
           disks:
             - disk:
@@ -31,7 +33,8 @@ spec:
                 - port: 80
                 - port: 443
         resources:
-          requests:
+          limits:
+            cpu: 4
             memory: 32G # from OVA's OVF XML
       networks:
         - name: default
