@@ -13,9 +13,9 @@ defaults:
     shell: bash
 env:
   S3_URL: s3://naps-dev-artifacts/Capability-SW/MixMode
-  VM: MixMode-8.11-export-i-0966be276efb5b2f2.ova
-  V2V_OUT: mixmode-8.11
-  QCOW2_FILE: mixmode-8.11-sda.qcow2
+  VM: MixMode-8.14-export-i-0e80aaca99d863be5.ova # MixMode-8.11-export-i-0966be276efb5b2f2.ova
+  V2V_OUT: mixmode-8.14
+  QCOW2_FILE: mixmode-8.14-sda.qcow2
   S3_PATH: "s3://${{ secrets.AWS_BUCKET }}/${{ github.repository }}/${{ github.head_ref || github.ref_name }}"
   IMAGE_NAME: 765814079306.dkr.ecr.us-east-1.amazonaws.com/mixmode
   IMAGE_TAG: "${{ github.head_ref || github.ref_name }}"
