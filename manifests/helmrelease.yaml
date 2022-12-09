@@ -16,6 +16,7 @@ spec:
         kind: GitRepository
         name: mixmode
   values:
+    domain: "###ZARF_VAR_DOMAIN###"
     image:
       tag: ###ZARF_CONST_TAG###
   test:

@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ include "mixmode.fullname" . }}
+  labels:
+    {{- include "mixmode.labels" . | nindent 4 }}
+spec:
+  hosts:
+    - "{{ include "mixmode.fullname" . }}.{{ .Values.domain }}"
+  gateways:
+    - istio-system/dataplane
+  http:
+    - route:
+        - destination:
+            host: {{ include "mixmode.fullname" . }}
+            port:
+              number: 443
