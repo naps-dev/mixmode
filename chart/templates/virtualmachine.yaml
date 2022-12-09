@@ -45,7 +45,8 @@ spec:
           name: {{ include "mixmode.fullname" . }}
         - name: cloudinitdisk
           cloudInitNoCloud:
-            userDataSecretRef: mixmode-userdata
+            secretRef:
+              name: mixmode-userdata
 
   dataVolumeTemplates:
     - metadata:
