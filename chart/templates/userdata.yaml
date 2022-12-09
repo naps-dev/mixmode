@@ -3,7 +3,7 @@ kind: Secret
 metadata:
   name: mixmode-userdata
 type: Opaque
-stringdata:
+stringData:
   userdata: | 
     #cloud-config
 
