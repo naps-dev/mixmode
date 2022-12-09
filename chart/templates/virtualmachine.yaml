@@ -48,6 +48,136 @@ spec:
             userData: |
               #cloud-config
 
+              write_files:
+              - path: /etc/pki/tls/certs/server.key
+                content: |
+                  -----BEGIN PRIVATE KEY-----
+                  MIIEwAIBADANBgkqhkiG9w0BAQEFAASCBKowggSmAgEAAoIBAQDh2xRgS9BJ4bMk
+                  MylKQMSSrEtIVfumRS3addOBiRuR+OfehP3hVXdeIt9ud0O8XfvqrvPrQDU8MZCA
+                  gO052MroproJCP5iwDOCeVZwszmfVOE5bX6UOjJ+TKsTjB5dvXZw5BcpTVIszDco
+                  /X+SGYUXCjOPU/fy4sPzYF1tQr18J+pakTrsbFU8cneQJ3pfinhNXZ52Um23nDqE
+                  TA3Ge1KtPNmV/955EFOg6QafVwfsOBKY2djFXLfYMg9bq4zfn7MyzYJ/sT/zmCzM
+                  oPSQwHq5egQmUing/7xoGON8ODbywXNoi46fs7re3fcPMjtufIRe6aGhRpqTdVxp
+                  IyQyQm3pAgMBAAECggEBAJK2iYn0NZ2Iq6H8SfoeEJNmsJCQqiPcFGkw2O/wbKRq
+                  F9UIdxMFPcE8zf8oIiwesSJF+9T5pJsxZzjSh0doeIagp4BvAzCKwesjfu8+vVOv
+                  A48WfX80PtCkZQ0RnDgwdtvmjtUZkSPglIRgB5qUUUwiKFQWq55vh/J0yrvK+uPG
+                  oSv3gO30Z/o/v5KPL2V7K+r4b6NjlqExg1oBF4IO7BCAUbL8iSvkbzd7ui/7u8Cg
+                  GIXqtZMJe2Nr6TQ99d6l6kdXahrD2ZcmWxEuqEK2iTQeFviLCYk5V3zFQArLnP8W
+                  p26OwPoaS6npO9bWkpO/5qbT2Pc1KchfY60dfJnlAzECgYEA/ffKMDZauxiuLFUp
+                  NDtsGqdaM0aLUQT+BdPWaTuZczg4P3DsP2+f/+hu9qUSUtgqvA1kzV/XFaZ70w3S
+                  hp6+3JQ5GL1u3kjV2MKJieyYLRzdr5A5vKOgSRs8O2V+S5nXMOFHTk9ttI0ylS8b
+                  ujyrNspzrULNjHlBdnhV3W/Tg0sCgYEA46m08sTzI5CP0pCbToH1nGo27OIphr6M
+                  L8Lhur+2hBTyTu8is6Xlcr/84O5TjMNB++ZJjyBZpkD3RajxYLbo0Ylg5/pQ4jCw
+                  RmFAIVemochYDGLl1HmoR5tLqHMFZmmDlb7pt5bNaRS2fAVbKyRI4cfGjwOJ0Hfo
+                  WKXqrvA4nxsCgYEA3XGJ4rACPNEwTYeT/e8yO6tggwUnxOVNeVdUxT0qd8S1htu3
+                  ozh5knHhDz6v03yZBo/HLSw8Jqybm1OaFbelREAZ6PCEE13+2JoHwzOBHRTmV4ay
+                  UUF7KUOOKVw92z2w3PYRbr7jMWNMj7gbvS/ZOlUcuB5fi/TOl7YlaIdxLjECgYEA
+                  n2f0iwfcNsrB6W3XUOEuWJcGXlb9PJuvDMIny9rwsQr5nstSQPen8PD834IAfk85
+                  pGdamhzMqNxURzJD0LRB0HWgpM1gVQBCbQUrIi19P0pIXGPjCSMl8P2LvCbNYSgA
+                  OpmyjBnLOgiGvdACRfLiFTUMkpanqJBM38VMzbDl9IECgYEAw5z8yXEXo6+BTWIA
+                  XdaHOSa4AQNFj34j2zVo4bJo+6w5pK20uPfqApwYIj49ON/OthwhZnS+MqXLOxJy
+                  JR2myzhWO1BdUOyrgLuBnkdXKSPzU89aP5eNU6Pd90KX/qTHbdDQlNKcg+iY3w+y
+                  H6G7Vm6fRQi9y3+EKDKTbIIIl6g=
+                  -----END PRIVATE KEY-----
+                owner: 'root:root'
+                permissions: '0600'
+              - path: /etc/pki/tls/certs/server.crt
+                content: |
+                  -----BEGIN CERTIFICATE-----
+                  MIIFZzCCBE+gAwIBAgISA/9KHKdevV4MIWFWgYyLOy4bMA0GCSqGSIb3DQEBCwUA
+                  MDIxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MQswCQYDVQQD
+                  EwJSMzAeFw0yMjEyMDgxNzQ2NTJaFw0yMzAzMDgxNzQ2NTFaMBsxGTAXBgNVBAMM
+                  ECoudnAuYmlnYmFuZy5kZXYwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+                  AQDh2xRgS9BJ4bMkMylKQMSSrEtIVfumRS3addOBiRuR+OfehP3hVXdeIt9ud0O8
+                  XfvqrvPrQDU8MZCAgO052MroproJCP5iwDOCeVZwszmfVOE5bX6UOjJ+TKsTjB5d
+                  vXZw5BcpTVIszDco/X+SGYUXCjOPU/fy4sPzYF1tQr18J+pakTrsbFU8cneQJ3pf
+                  inhNXZ52Um23nDqETA3Ge1KtPNmV/955EFOg6QafVwfsOBKY2djFXLfYMg9bq4zf
+                  n7MyzYJ/sT/zmCzMoPSQwHq5egQmUing/7xoGON8ODbywXNoi46fs7re3fcPMjtu
+                  fIRe6aGhRpqTdVxpIyQyQm3pAgMBAAGjggKMMIICiDAOBgNVHQ8BAf8EBAMCBaAw
+                  HQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMAwGA1UdEwEB/wQCMAAwHQYD
+                  VR0OBBYEFBOzW+APU5eiyYtI+b7pGLw7o0xOMB8GA1UdIwQYMBaAFBQusxe3WFbL
+                  rlAJQOYfr52LFMLGMFUGCCsGAQUFBwEBBEkwRzAhBggrBgEFBQcwAYYVaHR0cDov
+                  L3IzLm8ubGVuY3Iub3JnMCIGCCsGAQUFBzAChhZodHRwOi8vcjMuaS5sZW5jci5v
+                  cmcvMFwGA1UdEQRVMFOCFCoudnAtZGV2LmJpZ2JhbmcuZGV2ghQqLnZwLXN0Zy5i
+                  aWdiYW5nLmRldoITKi52cC10Mi5iaWdiYW5nLmRldoIQKi52cC5iaWdiYW5nLmRl
+                  djBMBgNVHSAERTBDMAgGBmeBDAECATA3BgsrBgEEAYLfEwEBATAoMCYGCCsGAQUF
+                  BwIBFhpodHRwOi8vY3BzLmxldHNlbmNyeXB0Lm9yZzCCAQQGCisGAQQB1nkCBAIE
+                  gfUEgfIA8AB2ALc++yTfnE26dfI5xbpY9Gxd/ELPep81xJ4dCYEl7bSZAAABhPMP
+                  2A8AAAQDAEcwRQIhANDANWU/F2uURUc6jP73Yx6BkgASk/PJBG1e1XfIsAUpAiA4
+                  Ml0WKE8kyf4UuIAzHsTuLCHMbGbL/Sz599igddfrkAB2AK33vvp8/xDIi509nB4+
+                  GGq0Zyldz7EMJMqFhjTr3IKKAAABhPMP2LoAAAQDAEcwRQIgF6ugkqhb09SCwUWf
+                  MjCcVXLE8qTURo/LaNSxa+fIEd0CIQDrtx8sKI1olCIF8ojKpYKjEoPPttgn6ZY+
+                  EVequOZ/ljANBgkqhkiG9w0BAQsFAAOCAQEAFZi/S2kTZaylh0z+IM8vyVNlDKIy
+                  m5hLEOYoYMJ+vllfwlFIEhdV0u5AT2LfGT1lQ0Gk4Xg+hPkzjKzgTqFc9dIWW1Ni
+                  j0A3GxBjItUEH281b3lMGeTOkwowgbFZp0fnuo9bZJgg993L9d+XUj73JfYssY32
+                  HC5EzFCPZ8QoKQ+02uiJnaiDoTUI6JWy1EWIpsvGOhqbYs1d270X3RWnpNeCPOfZ
+                  mQls15/BTetfeUVPwgu2P5xqbYW4QHtuWhoN9qhFhQivsYSTV73OyWOmbXWU0NQ5
+                  O1AVHynAoiTUlkDqLVCNBqGA6atyU4MpvQMzKG0JoOUKbyJAbh5Kn21TOg==
+                  -----END CERTIFICATE-----
+                  -----BEGIN CERTIFICATE-----
+                  MIIFFjCCAv6gAwIBAgIRAJErCErPDBinU/bWLiWnX1owDQYJKoZIhvcNAQELBQAw
+                  TzELMAkGA1UEBhMCVVMxKTAnBgNVBAoTIEludGVybmV0IFNlY3VyaXR5IFJlc2Vh
+                  cmNoIEdyb3VwMRUwEwYDVQQDEwxJU1JHIFJvb3QgWDEwHhcNMjAwOTA0MDAwMDAw
+                  WhcNMjUwOTE1MTYwMDAwWjAyMQswCQYDVQQGEwJVUzEWMBQGA1UEChMNTGV0J3Mg
+                  RW5jcnlwdDELMAkGA1UEAxMCUjMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEK
+                  AoIBAQC7AhUozPaglNMPEuyNVZLD+ILxmaZ6QoinXSaqtSu5xUyxr45r+XXIo9cP
+                  R5QUVTVXjJ6oojkZ9YI8QqlObvU7wy7bjcCwXPNZOOftz2nwWgsbvsCUJCWH+jdx
+                  sxPnHKzhm+/b5DtFUkWWqcFTzjTIUu61ru2P3mBw4qVUq7ZtDpelQDRrK9O8Zutm
+                  NHz6a4uPVymZ+DAXXbpyb/uBxa3Shlg9F8fnCbvxK/eG3MHacV3URuPMrSXBiLxg
+                  Z3Vms/EY96Jc5lP/Ooi2R6X/ExjqmAl3P51T+c8B5fWmcBcUr2Ok/5mzk53cU6cG
+                  /kiFHaFpriV1uxPMUgP17VGhi9sVAgMBAAGjggEIMIIBBDAOBgNVHQ8BAf8EBAMC
+                  AYYwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMBMBIGA1UdEwEB/wQIMAYB
+                  Af8CAQAwHQYDVR0OBBYEFBQusxe3WFbLrlAJQOYfr52LFMLGMB8GA1UdIwQYMBaA
+                  FHm0WeZ7tuXkAXOACIjIGlj26ZtuMDIGCCsGAQUFBwEBBCYwJDAiBggrBgEFBQcw
+                  AoYWaHR0cDovL3gxLmkubGVuY3Iub3JnLzAnBgNVHR8EIDAeMBygGqAYhhZodHRw
+                  Oi8veDEuYy5sZW5jci5vcmcvMCIGA1UdIAQbMBkwCAYGZ4EMAQIBMA0GCysGAQQB
+                  gt8TAQEBMA0GCSqGSIb3DQEBCwUAA4ICAQCFyk5HPqP3hUSFvNVneLKYY611TR6W
+                  PTNlclQtgaDqw+34IL9fzLdwALduO/ZelN7kIJ+m74uyA+eitRY8kc607TkC53wl
+                  ikfmZW4/RvTZ8M6UK+5UzhK8jCdLuMGYL6KvzXGRSgi3yLgjewQtCPkIVz6D2QQz
+                  CkcheAmCJ8MqyJu5zlzyZMjAvnnAT45tRAxekrsu94sQ4egdRCnbWSDtY7kh+BIm
+                  lJNXoB1lBMEKIq4QDUOXoRgffuDghje1WrG9ML+Hbisq/yFOGwXD9RiX8F6sw6W4
+                  avAuvDszue5L3sz85K+EC4Y/wFVDNvZo4TYXao6Z0f+lQKc0t8DQYzk1OXVu8rp2
+                  yJMC6alLbBfODALZvYH7n7do1AZls4I9d1P4jnkDrQoxB3UqQ9hVl3LEKQ73xF1O
+                  yK5GhDDX8oVfGKF5u+decIsH4YaTw7mP3GFxJSqv3+0lUFJoi5Lc5da149p90Ids
+                  hCExroL1+7mryIkXPeFM5TgO9r0rvZaBFOvV2z0gp35Z0+L4WPlbuEjN/lxPFin+
+                  HlUjr8gRsI3qfJOQFy/9rKIJR0Y/8Omwt/8oTWgy1mdeHmmjk7j1nYsvC9JSQ6Zv
+                  MldlTTKB3zhThV1+XWYp6rjd5JW1zbVWEkLNxE7GJThEUG3szgBVGP7pSWTUTsqX
+                  nLRbwHOoq7hHwg==
+                  -----END CERTIFICATE-----
+                  -----BEGIN CERTIFICATE-----
+                  MIIFYDCCBEigAwIBAgIQQAF3ITfU6UK47naqPGQKtzANBgkqhkiG9w0BAQsFADA/
+                  MSQwIgYDVQQKExtEaWdpdGFsIFNpZ25hdHVyZSBUcnVzdCBDby4xFzAVBgNVBAMT
+                  DkRTVCBSb290IENBIFgzMB4XDTIxMDEyMDE5MTQwM1oXDTI0MDkzMDE4MTQwM1ow
+                  TzELMAkGA1UEBhMCVVMxKTAnBgNVBAoTIEludGVybmV0IFNlY3VyaXR5IFJlc2Vh
+                  cmNoIEdyb3VwMRUwEwYDVQQDEwxJU1JHIFJvb3QgWDEwggIiMA0GCSqGSIb3DQEB
+                  AQUAA4ICDwAwggIKAoICAQCt6CRz9BQ385ueK1coHIe+3LffOJCMbjzmV6B493XC
+                  ov71am72AE8o295ohmxEk7axY/0UEmu/H9LqMZshftEzPLpI9d1537O4/xLxIZpL
+                  wYqGcWlKZmZsj348cL+tKSIG8+TA5oCu4kuPt5l+lAOf00eXfJlII1PoOK5PCm+D
+                  LtFJV4yAdLbaL9A4jXsDcCEbdfIwPPqPrt3aY6vrFk/CjhFLfs8L6P+1dy70sntK
+                  4EwSJQxwjQMpoOFTJOwT2e4ZvxCzSow/iaNhUd6shweU9GNx7C7ib1uYgeGJXDR5
+                  bHbvO5BieebbpJovJsXQEOEO3tkQjhb7t/eo98flAgeYjzYIlefiN5YNNnWe+w5y
+                  sR2bvAP5SQXYgd0FtCrWQemsAXaVCg/Y39W9Eh81LygXbNKYwagJZHduRze6zqxZ
+                  Xmidf3LWicUGQSk+WT7dJvUkyRGnWqNMQB9GoZm1pzpRboY7nn1ypxIFeFntPlF4
+                  FQsDj43QLwWyPntKHEtzBRL8xurgUBN8Q5N0s8p0544fAQjQMNRbcTa0B7rBMDBc
+                  SLeCO5imfWCKoqMpgsy6vYMEG6KDA0Gh1gXxG8K28Kh8hjtGqEgqiNx2mna/H2ql
+                  PRmP6zjzZN7IKw0KKP/32+IVQtQi0Cdd4Xn+GOdwiK1O5tmLOsbdJ1Fu/7xk9TND
+                  TwIDAQABo4IBRjCCAUIwDwYDVR0TAQH/BAUwAwEB/zAOBgNVHQ8BAf8EBAMCAQYw
+                  SwYIKwYBBQUHAQEEPzA9MDsGCCsGAQUFBzAChi9odHRwOi8vYXBwcy5pZGVudHJ1
+                  c3QuY29tL3Jvb3RzL2RzdHJvb3RjYXgzLnA3YzAfBgNVHSMEGDAWgBTEp7Gkeyxx
+                  +tvhS5B1/8QVYIWJEDBUBgNVHSAETTBLMAgGBmeBDAECATA/BgsrBgEEAYLfEwEB
+                  ATAwMC4GCCsGAQUFBwIBFiJodHRwOi8vY3BzLnJvb3QteDEubGV0c2VuY3J5cHQu
+                  b3JnMDwGA1UdHwQ1MDMwMaAvoC2GK2h0dHA6Ly9jcmwuaWRlbnRydXN0LmNvbS9E
+                  U1RST09UQ0FYM0NSTC5jcmwwHQYDVR0OBBYEFHm0WeZ7tuXkAXOACIjIGlj26Ztu
+                  MA0GCSqGSIb3DQEBCwUAA4IBAQAKcwBslm7/DlLQrt2M51oGrS+o44+/yQoDFVDC
+                  5WxCu2+b9LRPwkSICHXM6webFGJueN7sJ7o5XPWioW5WlHAQU7G75K/QosMrAdSW
+                  9MUgNTP52GE24HGNtLi1qoJFlcDyqSMo59ahy2cI2qBDLKobkx/J3vWraV0T9VuG
+                  WCLKTVXkcGdtwlfFRjlBz4pYg1htmf5X6DYO8A4jqv2Il9DjXA6USbW1FzXSLr9O
+                  he8Y4IWS6wY7bCkjCWDcRQJMEhg76fsO3txE+FiYruq9RUWhiF1myv4Q6W+CyBFC
+                  Dfvp7OOGAN6dEOM4+qR9sdjoSYKEBpsr6GtPAQw4dy753ec5
+                  -----END CERTIFICATE-----
+                owner: 'root:root'
+                permissions: '0600'
+
               disable_root: 0
               ssh_pwauth: false
               chpasswd:
@@ -63,6 +193,13 @@ spec:
               ssh_publish_hostkeys:
                 enabled: true
                 blacklist: [dsa]
+            
+              runcmd:
+                - "sed 's/MIXMODE_API_SERVER_HOSTNAME=/MIXMODE_API_SERVER_HOSTNAME=mixmode-enterprise.vp-stg.bigbang.dev' /opt/mixmode/env"
+                - "sed 's/MIXMODE_API_SERVER_GIT=/MIXMODE_API_SERVER_GIT=mixmode-enterprise.vp-stg.bigbang.dev' /opt/mixmode/env"
+                - "sed 's/MIXMODE_SSL_KEY_PATH=/MIXMODE_SSL_KEY_PATH=/etc/pki/tls/certs/server.key' /opt/mixmode/env"
+                - "sed 's/MIXMODE_SSL_CRT_PATH=/MIXMODE_SSL_CRT_PATH=/etc/pki/tls/certs/server.crt' /opt/mixmode/env"
+                - "pupdate"
 
   dataVolumeTemplates:
     - metadata:

@@ -1,0 +1,57 @@
+- notes*
+  - when the step to execute puppet is run, the system will need to have outside internet access to work successfully
+  - determine fqdn; the hostname portion of the fqdn must be "mixmode-enterprise" or a new license key will be needed. You will need an SSL TLS certificate and key for this domain, used in UI https.  These .crt and .key files will be used later
+  - you will need your SMTP email server information if SMTP will be used, otherwise postfix will be the default
+
+----------------------------
+
+- login to console as centos
+- configure primary network interface and any networking with "nmtui"
+- change to root "sudo su -"
+
+Platform
+========
+- scp your .crt and .key files to the platform in /etc/pki/tls/certs
+
+- edit the file "/opt/mixmode/env"
+    - populate or change the following:
+
+        - MIXMODE_API_SERVER_HOSTNAME=
+          - use the hostname/fqdn you chose earlier
+
+        - MIXMODE_API_SERVER_GIT=
+          - use the hostname/fqdn you chose earlier
+
+        - MIXMODE_DNS_PROXY=
+          - the ip address(es) of your dns resolver(s) separated by commas
+
+        - MIXMODE_SSL_KEY_PATH=/etc/pki/tls/certs/<yourfile>.key
+          - set to /etc/pki/tls/certs/<yourfile>.key
+
+        - MIXMODE_SSL_CRT_PATH=/etc/pki/tls/certs/<yourfile>.crt
+          - set to /etc/pki/tls/certs/<yourfile>.crt
+
+        - if using SMTP for email set the followina, otherwise leave them commented out:
+          - MIXMODE_EMAIL_SMTP_HOST=
+          - MIXMODE_EMAIL_SMTP_PORT=
+          - MIXMODE_EMAIL_SMTP_USER=
+          - MIXMODE_EMAIL_SMTP_PASS=
+
+- to execute and apply configuration run "pupdate"
+
+Analytics
+=========
+- edit the file "/opt/mixmode-analytics/env"
+    - populate or change the following:
+
+        - MIXMODE_PROVIDERID=1036
+
+        - MIXMODE_API_SERVER_HOSTNAME=
+            - use the hostname/fqdn you chose earlier
+
+- to execute and apply configuration run "/opt/mixmode-analytics/etc/puppet/puppet.sh apply /opt/mixmode-analytics/etc/puppet"
+
+----------------------------
+
+All set. Grab your provider (root) password with this command: grep LDAP /opt/mixmode/env | cut -d'=' -f2 | tr -d '"'
+Log into the MixMode UI (user:provider p/w:^) to begin creating users, sensors, etc.
