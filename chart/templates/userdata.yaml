@@ -160,4 +160,4 @@ stringData:
       - "sed -i 's|MIXMODE_SSL_KEY_PATH=|MIXMODE_SSL_KEY_PATH=/etc/pki/tls/certs/server.key|' /opt/mixmode/env"
       - "sed -i 's|MIXMODE_SSL_CRT_PATH=|MIXMODE_SSL_CRT_PATH=/etc/pki/tls/certs/server.crt|' /opt/mixmode/env"
       - set +eou
-      - pupdate
+      - "/opt/mixmode/etc/puppet/puppet.sh apply /opt/mixmode/etc/puppet/"
