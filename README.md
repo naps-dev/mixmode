@@ -1,6 +1,7 @@
-# MixMode Server 8.11
+# MixMode Server 8.14
 
 The MixMode server or 'brain'.
+Please see [docs/instructions.txt](docs/instructions.txt) for setup instructions from the vendor.
 
 ## VM OCI Image Creation
 
@@ -15,3 +16,20 @@ The GitLab pipeline uses `virt-v2v` and `virt-customize` to convert the MixMode 
 This package assumes the cluster is running KubeVirt and CDI and has the space and execution resources needed.
 
 `zarf package deploy`
+
+Please note: the [Virtual Machine ](chart/templates/virtualmachine.yaml) performs a number of 
+
+## Log in to the web application
+
+https://mixmode-enterprise.vp-stg.bigbang.dev
+
+Username: provider
+Password: *see below*
+
+#### Get the Password
+
+You must have the mixmode private key. It is available on S3 in `naps-dev-artifacs > mixmode-key > mixmode`
+
+```
+kubectl virt ssh -i ~/.ssh/mixmode --username centos -n mixmode mixmode-enterprise -c "grep LDAP /opt/mixmode/env | cut -d'=' -f2 | tr -d '\"'"
+```
