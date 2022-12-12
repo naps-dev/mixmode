@@ -1,0 +1,9 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: {{ include "mixmode.fullname" . }}
+spec:
+  host: {{ include "mixmode.fullname" . }}
+  trafficPolicy:
+    tls:
+      mode: SIMPLE

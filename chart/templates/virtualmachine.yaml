@@ -14,6 +14,8 @@ spec:
         {{- include "mixmode.selectorLabels" . | nindent 8 }}
     spec:
       domain:
+        # cpu:
+        #   dedicatedCpuPlacement: true
         devices:
           disks:
             - disk:
@@ -26,12 +28,14 @@ spec:
             - name: default
               masquerade: {}
               ports:
-                # Ports not known, including HTTP and SSH for now
+                # Ports not known, including HTTP/HTTPS and SSH for now
                 - port: 22
                 - port: 80
+                - port: 443
         resources:
-          requests:
-            memory: 2G # from OVA's OVF XML
+          limits:
+            # cpu: 4
+            memory: 32G # from OVA's OVF XML
       networks:
         - name: default
           pod: {}
@@ -41,10 +45,9 @@ spec:
           name: {{ include "mixmode.fullname" . }}
         - name: cloudinitdisk
           cloudInitNoCloud:
-            userData: |
-              #cloud-config
+            secretRef:
+              name: mixmode-userdata
 
-              # untested if this works
   dataVolumeTemplates:
     - metadata:
         name: {{ include "mixmode.fullname" . }}
